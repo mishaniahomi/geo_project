@@ -3,8 +3,8 @@
 Данный проект предназанчен для отображения карты стран. 
 
 # 2 Установка
-Для того, чтобы развернуть данный проект, необходимо настроить геопространственную библиотеку. В данном случае будет использоваться пространственное расширение для PostgreSQL - PostGIS. 
-<h3>2.1 Установка Docker:</h3>
+Для того, чтобы развернуть данный проект, необходимо настроить геопространственную библиотеку. В данном случае будет использоваться пространственное расширение для PostgreSQL - PostGIS. Во время создания проекта СУБД располагалась в Docker.
+<h3>2.1 <a href='https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-20-04-ru'>Установка Docker</a></h3>
 <h3>2.2 <a href='https://losst.pro/ustanovka-postgresql-ubuntu-16-04'>Базовая установка Postgres</a></h3> 
 <h3>2.3 Установка расширения PostGIS:</h3>
   <ul>
@@ -29,8 +29,33 @@
 Для установки трбуется:
 <ul>
 <li>python3.10 или выше;</li>
-<li>выполнить команду pip3 install requirements.txt;</li>
-</ul>
+<li>выполнить команду: 
+  <div>
+    
+    pip3 install requirements.txt
+    
+  </div>
+  </li>
+  
+  <li>В settings.py настроить: 
+  <div>
+    
+     DATABASES = {
+      'default': {
+          'ENGINE': 'django.contrib.gis.db.backends.postgis',
+          'NAME': 'postgis_db', 
+          'USER': 'postgis_user',
+          'PASSWORD': 'postgis_user',
+          'HOST': '172.17.0.1', # адрес СУБД
+          'PORT': '5432',
+      },
+    }
+    
+  </div>
+  </li>
+</ul>  
+   
+
 <h3>2.5 Загрузка данных</h3>
   <ul>
   <li> Скачиваем данные из <a href='https://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/ne_10m_admin_0_countries.zip'>источника</a></li>
@@ -101,16 +126,9 @@
     
   </div>
  </ul>
-# 3 Запуск
+<h3>3 Запуск приложения</h3>
+<div>
+  
 python3 manage.py runserver
 
-
-# Демонстрация
-Пример отображения графика Бразильского реала:
-<img src="./readme_assets/Screenshot_2023-03-22_09-44-55.png" width="100%">
-Пример отображения графика доллара:
-<img src="./readme_assets/Screenshot_2023-03-22_09-46-18.png" width="100%">
-Страница отправления письма с курсами
-<img src="./readme_assets/Screenshot_2023-03-22_09-48-18.png" width="100%">
-Результаты планировщика, который располагается на 5555 порту:
-<img src="./readme_assets/Screenshot_2023-03-22_09-58-16.png" width="100%">
+  </div>
